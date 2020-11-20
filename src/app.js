@@ -24,7 +24,10 @@ const App = () => {
   }, [])
 
   return (
-    random ? <Verse verse={random} def={def} /> : <Loading />
+    <>
+      <img className="image" src={`https://picsum.photos/${window.innerWidth}/${window.innerHeight}`} alt="" />
+      {random && def ? <Verse verse={random} def={def} /> : <Loading />}
+    </>
   )
 }
 
