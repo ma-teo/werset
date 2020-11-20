@@ -1,9 +1,9 @@
-const Verse = ({verse, def}) => (
+const Verse = ({text, def}) => (
   <p className="verse">
-    {verse}
+    {text}
     <br />
     <br />
-    ({def})
+    {def}
   </p>
 )
 

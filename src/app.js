@@ -3,9 +3,9 @@ import Loading from './components/loading'
 import Verse from './components/verse'
 
 const App = () => {
-  const [choice, setChoice] = useState(JSON.parse(sessionStorage.getItem('choice')))
+  const [choice, setChoice] = useState()
 
-  const handler = async () => {
+  useEffect(async () => {
     const data = await (await fetch(`${process.env.REACT_APP_API_URL}`)).json()
 
     const book = Math.round(Math.random() * (data.books.length - 1))
@@ -15,13 +15,10 @@ const App = () => {
     const verse = Math.round(Math.random() * (verses.length - 1))
 
     setChoice({
-      verse: verses[verse],
+      text: verses[verse],
       def: `${data.books[book]} ${chapter + 1}:${verse + 1}`
     })
-  }
-
-  useEffect(() => !sessionStorage.getItem('choice') && handler(), [])
-  useEffect(() => sessionStorage.setItem('choice', JSON.stringify(choice)), [choice])
+  }, [])
 
   return (
     <>
