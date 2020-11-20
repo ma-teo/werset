@@ -11,12 +11,12 @@ const App = () => {
     const data = await (await fetch(`${process.env.REACT_APP_API_URL}`)).json()
     setVariables(data)
 
-    const book = Math.floor(Math.random() * data.books.length)
-    const chapter = Math.floor(Math.random() * data.chapters[book])
+    const book = Math.round(Math.random() * (data.books.length - 1))
+    const chapter = Math.round(Math.random() * (data.chapters[book] - 1))
 
     const verses = await (await fetch(`${process.env.REACT_APP_API_URL}/0/${book}/${chapter}`)).json()
 
-    const verse = Math.floor(Math.random() * verses.length)
+    const verse = Math.round(Math.random() * (verses.length - 1))
 
     const choice = verses[verse]
     setRandom(choice)
