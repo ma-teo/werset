@@ -6,17 +6,17 @@ const App = () => {
   const [choice, setChoice] = useState()
 
   useEffect(async () => {
-    const data = await (await fetch(`${process.env.REACT_APP_API_URL}`)).json()
+    const {books, verses} = await (await fetch(`${process.env.REACT_APP_API_URL}/0`)).json()
 
-    const book = Math.round(Math.random() * (data.books.length - 1))
-    const chapter = Math.round(Math.random() * (data.chapters[book] - 1))
+    const book_ID = Math.round(Math.random() * (verses.length - 1))
+    const chapter_ID = Math.round(Math.random() * (verses[book_ID].length - 1))
+    const verse_ID = Math.round(Math.random() * (verses[book_ID][chapter_ID] - 1))
 
-    const verses = await (await fetch(`${process.env.REACT_APP_API_URL}/0/${book}/${chapter}`)).json()
-    const verse = Math.round(Math.random() * (verses.length - 1))
+    const {verse} = await (await fetch(`${process.env.REACT_APP_API_URL}/0/${book_ID}/${chapter_ID}/${verse_ID}`)).json()
 
     setChoice({
-      text: verses[verse],
-      def: `${data.books[book]} ${chapter + 1}:${verse + 1}`
+      text: verse,
+      def: `${books[book_ID]} ${chapter_ID + 1}:${verse_ID + 1}`
     })
   }, [])
 
